@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import './HuzalinkMarketplace.css';
 
-const PRODUCTS = [
+export const PRODUCTS = [
   {
     url: 'lms.huzalabs.com',
     link: 'https://ncsa-lms.vercel.app/',
@@ -175,7 +175,7 @@ function BrowserDots() {
   );
 }
 
-function SunIcon() {
+export function SunIcon() {
   return (
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
       <circle cx="12" cy="12" r="4" />
@@ -184,7 +184,7 @@ function SunIcon() {
   );
 }
 
-function MoonIcon() {
+export function MoonIcon() {
   return (
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
       <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79Z" />
@@ -201,7 +201,7 @@ function SearchIcon() {
   );
 }
 
-function ArrowRightIcon() {
+export function ArrowRightIcon() {
   return (
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
       <path d="M5 12h14" />
@@ -430,7 +430,7 @@ export default function HuzalinkMarketplace() {
             <p className="hero-sub">Enterprise software products built in-house by Huzalabs — ready to license and deploy across government, healthcare, telecoms, and education.</p>
             <div className="hero-btns">
               <a href="#products" className="btn btn-green">Browse Products</a>
-              <a href="#contact" className="btn btn-outline">Get Access &rarr;</a>
+              <a href="/licensing" className="btn btn-outline">Get Access &rarr;</a>
             </div>
           </div>
 
@@ -592,7 +592,7 @@ export default function HuzalinkMarketplace() {
                     <p className="pdesc">{p.desc}</p>
                     <div className="pactions">
                       <a href={p.link || p.iframeUrl || '#'} target={(p.link || p.iframeUrl) ? '_blank' : undefined} rel="noopener noreferrer" className="btn btn-green">View Product &rarr;</a>
-                      <a href="mailto:info@huzalabs.com" className="btn btn-outline">Get Access</a>
+                      <a href={`/licensing?product=${encodeURIComponent(p.title)}`} className="btn btn-outline">Get Access</a>
                     </div>
                   </div>
                 </div>
