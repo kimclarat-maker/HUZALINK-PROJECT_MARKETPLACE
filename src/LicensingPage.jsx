@@ -86,20 +86,6 @@ export default function LicensingPage({ product, onNavigateHome }) {
                 : 'Tell us which product you need and how you plan to deploy it. Our team sets up licensing, onboarding, and support.'}
             </p>
           </div>
-
-          {matched && (
-            <div className="pgrid" style={{ gridTemplateColumns: '1fr', marginBottom: '8px' }}>
-              <div className="pcard" style={{ flexDirection: 'row', alignItems: 'center', maxWidth: '640px' }}>
-                <div className="pcard-body" style={{ flexDirection: 'row', alignItems: 'center', gap: '20px', padding: '24px 28px' }}>
-                  <div style={{ flex: 1 }}>
-                    <span className="ptag">{matched.tag}</span>
-                    <h3 className="ptitle">{matched.title}</h3>
-                    <p className="pdesc" style={{ marginBottom: '8px' }}>{matched.desc}</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          )}
         </div>
       </section>
 
