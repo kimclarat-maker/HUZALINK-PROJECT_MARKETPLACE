@@ -467,6 +467,38 @@
 .hz-marketplace .cta-inner p { font-size: 1.1rem; font-weight: 400; color: var(--text-muted); line-height: 1.7; margin-bottom: 40px; }
 .hz-marketplace .cta-inner .btn { padding: 16px 36px; font-size: 15px; }
 
+/* ─── LICENSING PAGE ───────────────────────────────── */
+.hz-marketplace .license-hero {
+  min-height: 72vh;
+  display: flex; align-items: center; justify-content: center;
+  padding: 160px 32px 100px;
+  background: var(--bg-alt);
+}
+.hz-marketplace .license-card {
+  max-width: 600px; width: 100%; text-align: center;
+  background: var(--surface); border: 1px solid var(--border); border-radius: 20px;
+  padding: 56px 48px; box-shadow: 0 20px 50px var(--shadow-strong);
+}
+.hz-marketplace .license-card .sec-eyebrow { text-align: center; }
+.hz-marketplace .license-h1 {
+  font-family: 'Nunito Sans', sans-serif; font-weight: 800; letter-spacing: -0.02em;
+  font-size: clamp(1.65rem, 3.2vw, 2.3rem); line-height: 1.2; color: var(--text);
+  margin: 8px 0 16px;
+}
+.hz-marketplace .license-sub {
+  font-size: 1rem; font-weight: 400; color: var(--text-muted); line-height: 1.7;
+  max-width: 460px; margin: 0 auto 32px;
+}
+.hz-marketplace .license-options { display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; margin-bottom: 36px; }
+.hz-marketplace .license-chip {
+  padding: 8px 16px; border-radius: 100px; background: var(--surface-2); border: 1px solid var(--border);
+  font-size: 12.5px; font-weight: 700; color: var(--text-muted);
+}
+.hz-marketplace .license-cta { padding: 16px 36px; font-size: 15px; }
+@media (max-width: 600px) {
+  .hz-marketplace .license-card { padding: 40px 28px; }
+}
+
 /* ─── FOOTER ───────────────────────────────────────── */
 .hz-marketplace footer { background: var(--bg); border-top: 1px solid var(--border-subtle); padding: 40px 32px; }
 .hz-marketplace .foot { max-width: 1180px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; gap: 24px; flex-wrap: wrap; }

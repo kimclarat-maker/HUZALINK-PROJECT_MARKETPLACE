@@ -2,23 +2,7 @@ import { useState } from 'react';
 import './HuzalinkMarketplace.css';
 import { PRODUCTS, SunIcon, MoonIcon, ArrowRightIcon } from './HuzalinkMarketplace';
 
-const DEPLOYMENT_PLANS = [
-  {
-    step: 'On-Premise',
-    h: 'Runs inside your infrastructure',
-    p: 'Deployed and hosted within your own servers or data center, with full data residency and control — typical for government and public-safety products.',
-  },
-  {
-    step: 'SaaS',
-    h: 'Hosted and managed for you',
-    p: 'We host and maintain the product; you get an account and start using it immediately, with updates and support handled on our side.',
-  },
-  {
-    step: 'Government Portal',
-    h: 'Integrated with public infrastructure',
-    p: 'Configured to connect with existing government systems and citizen-facing services, deployed under the relevant institution.',
-  },
-];
+const DEPLOYMENT_OPTIONS = ['On-Premise', 'SaaS', 'Government Portal'];
 
 export default function LicensingPage({ product, onNavigateHome }) {
   const [theme, setTheme] = useState('light');
@@ -66,61 +50,22 @@ export default function LicensingPage({ product, onNavigateHome }) {
         </div>
       </nav>
 
-      {/* PAGE HEADER */}
-      <section className="products" style={{ paddingTop: '160px' }}>
-        <div style={{ maxWidth: '1180px', margin: '0 auto' }}>
-          <div className="sec-top">
-            <div>
-              <span className="sec-eyebrow">Licensing</span>
-              <h2 className="sec-h">
-                {matched ? (
-                  <>Get access to<br />{matched.title}</>
-                ) : (
-                  <>Get access to<br />a Huzalabs product</>
-                )}
-              </h2>
-            </div>
-            <p className="sec-note">
-              {matched
-                ? matched.desc
-                : 'Tell us which product you need and how you plan to deploy it. Our team sets up licensing, onboarding, and support.'}
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* DEPLOYMENT OPTIONS */}
-      <section className="how">
-        <div style={{ maxWidth: '1180px', margin: '0 auto' }}>
-          <div className="sec-top" style={{ marginBottom: '32px' }}>
-            <div>
-              <span className="sec-eyebrow">Deployment Options</span>
-              <h2 className="sec-h">Licensed the way you need it.</h2>
-            </div>
-          </div>
-          <div className="how-grid">
-            {DEPLOYMENT_PLANS.map((d) => (
-              <div className="how-item" key={d.step}>
-                <div className="how-step">{d.step}</div>
-                <div className="how-h">{d.h}</div>
-                <p className="how-p">{d.p}</p>
-              </div>
+      {/* LICENSING CARD */}
+      <section className="license-hero">
+        <div className="license-card">
+          <span className="sec-eyebrow">Licensing</span>
+          <h1 className="license-h1">
+            {matched ? `Get access to ${matched.title}` : 'Get access to a Huzalabs product'}
+          </h1>
+          <p className="license-sub">
+            {matched ? matched.desc : "Tell us what you need — we'll handle licensing, onboarding, and deployment."}
+          </p>
+          <div className="license-options">
+            {DEPLOYMENT_OPTIONS.map((o) => (
+              <span className="license-chip" key={o}>{o}</span>
             ))}
           </div>
-        </div>
-      </section>
-
-      {/* CTA */}
-      <section className="cta">
-        <div className="cta-inner">
-          <span className="sec-eyebrow">Start Licensing</span>
-          <h2>Ready to get<br /><em>set up?</em></h2>
-          <p>
-            {matched
-              ? `Reach out and we'll walk you through licensing and deploying ${matched.title}.`
-              : "Reach out and our team will confirm the right product and deployment model for you."}
-          </p>
-          <a href={mailHref} className="btn btn-green">Start a Conversation &rarr;</a>
+          <a href={mailHref} className="btn btn-green license-cta">Request Access &rarr;</a>
         </div>
       </section>
 
