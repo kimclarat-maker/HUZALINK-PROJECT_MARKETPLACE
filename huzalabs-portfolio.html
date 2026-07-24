@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Huzalabs — Digital Product Studio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Outfit:wght@600;700;800;900&display=swap" rel="stylesheet">
+<style>
+
+/* ─── BASE ─────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  background: #050508;
+  color: #ffffff;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+a { text-decoration: none; color: inherit; }
+img { display: block; max-width: 100%; }
+
+/* ─── ANIMATIONS ───────────────────────────────────── */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-15px); }
+}
+@keyframes floatDelayed {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+.reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s cubic-bezier(0.2, 1, 0.3, 1); }
+.reveal.active { opacity: 1; transform: translateY(0); }
+
+/* ─── NAV ──────────────────────────────────────────── */
+.nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  height: 70px;
+  background: rgba(5, 5, 8, 0.7);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+  display: flex; align-items: center;
+  transition: all 0.4s ease;
+}
+.nav-inner {
+  max-width: 1180px; width: 100%; margin: 0 auto; padding: 0 32px;
+  display: flex; align-items: center; justify-content: space-between; gap: 24px;
+}
+.logo { display: flex; align-items: center; gap: 10px; }
+.logo-mark {
+  width: 32px; height: 32px; border-radius: 8px; background: #2ec440;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Outfit', sans-serif; font-weight: 900; font-size: 16px; color: #fff; flex-shrink: 0;
+  box-shadow: 0 0 15px rgba(46,196,64,0.4);
+}
+.logo-name { font-family: 'Outfit', sans-serif; font-weight: 800; font-size: 15px; letter-spacing: 0.05em; color: #fff; }
+.nav-links { display: flex; gap: 32px; list-style: none; }
+.nav-links a {
+  font-size: 12px; font-weight: 600; letter-spacing: 0.08em;
+  text-transform: uppercase; color: #a1a1aa; transition: color .2s;
+}
+.nav-links a:hover { color: #fff; }
+
+/* ─── BUTTONS ──────────────────────────────────────── */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  padding: 12px 26px; border-radius: 100px;
+  font-family: 'Inter', sans-serif; font-weight: 700; font-size: 12px;
+  letter-spacing: 0.05em; text-transform: uppercase;
+  border: none; cursor: pointer; transition: all .3s cubic-bezier(0.2, 1, 0.3, 1); white-space: nowrap;
+}
+.btn-green { background: #2ec440; color: #000; box-shadow: 0 0 20px rgba(46,196,64,0.3); }
+.btn-green:hover {
+  background: #34d399; transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(46,196,64,0.5);
+}
+.btn-outline {
+  background: rgba(255,255,255,0.03); color: #fff;
+  border: 1px solid rgba(255,255,255,0.1);
+  backdrop-filter: blur(10px);
+}
+.btn-outline:hover { background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.2); transform: translateY(-2px); }
+
+/* ─── HERO ─────────────────────────────────────────── */
+.hero {
+  padding: 160px 32px 100px;
+  background: radial-gradient(circle at top right, rgba(46,196,64,0.08), transparent 40%), #050508;
+  position: relative; overflow: hidden;
+}
+.hero::before {
+  content: ''; position: absolute; top: -20%; left: -10%; width: 50%; height: 50%;
+  background: radial-gradient(circle, rgba(255,255,255,0.03), transparent 60%);
+  filter: blur(80px);
+}
+.hero-inner {
+  max-width: 1180px; margin: 0 auto;
+  display: grid; grid-template-columns: 1fr 490px; gap: 72px; align-items: center; position: relative; z-index: 10;
+}
+.hero-pill {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 6px 16px 6px 12px;
+  border-radius: 100px; border: 1px solid rgba(46,196,64,0.3);
+  background: rgba(46,196,64,0.1); backdrop-filter: blur(10px);
+  font-size: 10px; font-weight: 800; letter-spacing: 0.15em; text-transform: uppercase;
+  color: #4ade80; margin-bottom: 32px; width: fit-content;
+}
+.pill-dot {
+  width: 6px; height: 6px; background: #4ade80; border-radius: 50%;
+  animation: blink 2s ease-in-out infinite; box-shadow: 0 0 8px #4ade80;
+}
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:.3} }
+.hero h1 {
+  font-family: 'Outfit', sans-serif;
+  font-size: clamp(3.5rem, 6vw, 5.5rem);
+  font-weight: 900; letter-spacing: -0.04em; line-height: 0.95;
+  color: #fff; margin-bottom: 24px; text-wrap: balance;
+}
+.hero h1 .g { 
+  background: linear-gradient(135deg, #4ade80, #2ec440);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+}
+.hero-sub {
+  font-size: 1.15rem; font-weight: 400; color: #a1a1aa;
+  max-width: 480px; line-height: 1.8; margin-bottom: 40px;
+}
+.hero-btns { display: flex; gap: 16px; flex-wrap: wrap; }
+.hero-stats {
+  display: flex; gap: 40px; margin-top: 48px;
+  padding-top: 32px; border-top: 1px solid rgba(255,255,255,0.05);
+}
+.hs-n {
+  font-family: 'Outfit', sans-serif;
+  font-size: 2rem; font-weight: 800; letter-spacing: -0.02em;
+  color: #fff; line-height: 1; font-variant-numeric: tabular-nums;
+}
+.hs-n b { color: #4ade80; }
+.hs-l {
+  font-size: 10px; font-weight: 700; letter-spacing: 0.15em;
+  text-transform: uppercase; color: #71717a; margin-top: 8px;
+}
+
+/* ─── HERO VISUAL ──────────────────────────────────── */
+.hero-visual { position: relative; padding: 12px 0 36px 12px; user-select: none; animation: float 6s ease-in-out infinite; }
+.bw {
+  border-radius: 16px; overflow: hidden; border: 1px solid rgba(255,255,255,0.1);
+  background: #0a0a0c; position: relative;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.5), 0 0 80px rgba(46,196,64,0.1);
+}
+.bw-chrome {
+  background: rgba(255,255,255,0.03); padding: 12px 16px;
+  display: flex; align-items: center; gap: 12px;
+  border-bottom: 1px solid rgba(255,255,255,0.05); backdrop-filter: blur(10px);
+}
+.bw-addr {
+  flex: 1; background: rgba(0,0,0,0.3); border-radius: 6px;
+  padding: 6px 16px; text-align: center; border: 1px solid rgba(255,255,255,0.05);
+  font-size: 10px; font-weight: 500; color: #a1a1aa; letter-spacing: 0.05em;
+}
+.bw-screen { height: 380px; overflow: hidden; position: relative; }
+.bw-screen img { width: 100%; height: 100%; object-fit: cover; object-position: top; opacity: 0.8; }
+.bw-fade {
+  position: absolute; bottom: 0; left: 0; right: 0; height: 100px;
+  background: linear-gradient(to bottom, transparent, #050508); pointer-events: none;
+}
+.bw-float {
+  position: absolute; bottom: 16px; left: -24px;
+  background: rgba(15,15,20,0.8); border: 1px solid rgba(255,255,255,0.1); border-radius: 16px;
+  padding: 16px 20px; display: flex; align-items: center; gap: 16px;
+  backdrop-filter: blur(15px); box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+  animation: floatDelayed 7s ease-in-out infinite;
+}
+.bw-float-icon {
+  width: 40px; height: 40px; border-radius: 12px; background: rgba(46,196,64,0.15);
+  display: flex; align-items: center; justify-content: center; flex-shrink: 0; border: 1px solid rgba(46,196,64,0.3);
+}
+.bw-float-dot { width: 12px; height: 12px; border-radius: 50%; background: #4ade80; box-shadow: 0 0 10px #4ade80; }
+.bw-float-val { font-family: 'Outfit', sans-serif; font-size: 1.3rem; font-weight: 800; color: #fff; line-height: 1; }
+.bw-float-label { font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: #a1a1aa; margin-top: 4px; }
+.ss-dots { display: flex; gap: 6px; }
+.ss-dots span { width: 10px; height: 10px; border-radius: 50%; display: block; }
+.ss-dots span:nth-child(1){ background: #ff5f57; }
+.ss-dots span:nth-child(2){ background: #febc2e; }
+.ss-dots span:nth-child(3){ background: #28c840; }
+
+/* ─── PRODUCTS ─────────────────────────────────────── */
+.products { padding: 100px 32px 120px; background: #0a0a0e; border-top: 1px solid rgba(255,255,255,0.05); }
+.sec-top { display: flex; justify-content: space-between; align-items: flex-end; gap: 32px; margin-bottom: 60px; }
+.sec-eyebrow {
+  font-size: 11px; font-weight: 800; letter-spacing: 0.2em; text-transform: uppercase;
+  color: #4ade80; margin-bottom: 16px; display: block;
+}
+.sec-h {
+  font-family: 'Outfit', sans-serif; font-size: clamp(2.5rem, 4vw, 3.5rem); font-weight: 900;
+  letter-spacing: -0.03em; line-height: 1; color: #fff; text-wrap: balance;
+}
+.sec-note { font-size: 1rem; font-weight: 400; color: #a1a1aa; max-width: 340px; line-height: 1.6; text-align: right; flex-shrink: 0; }
+
+/* ─── FEATURED CARD ────────────────────────────────── */
+.featured {
+  background: rgba(255,255,255,0.02); border-radius: 24px; overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.08); display: grid; grid-template-columns: 55% 45%;
+  margin-bottom: 40px; backdrop-filter: blur(20px); transition: all .4s cubic-bezier(0.2, 1, 0.3, 1);
+}
+.featured:hover {
+  transform: translateY(-5px); border-color: rgba(46,196,64,0.3);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.4), 0 0 60px rgba(46,196,64,0.05);
+}
+.feat-img { position: relative; overflow: hidden; min-height: 400px; background: #000; }
+.feat-chrome {
+  position: absolute; top: 0; left: 0; right: 0; z-index: 2;
+  background: rgba(10,10,14,0.8); padding: 12px 16px; display: flex; align-items: center; gap: 12px;
+  border-bottom: 1px solid rgba(255,255,255,0.05); backdrop-filter: blur(10px);
+}
+.feat-img img { width: 100%; height: 100%; object-fit: cover; object-position: top; opacity: 0.85; transition: transform .6s ease; }
+.featured:hover .feat-img img { transform: scale(1.05); opacity: 1; }
+.feat-body { padding: 50px; display: flex; flex-direction: column; justify-content: center; }
+.feat-live {
+  display: inline-flex; align-items: center; gap: 8px; padding: 6px 14px; border-radius: 100px;
+  background: rgba(46,196,64,0.1); border: 1px solid rgba(46,196,64,0.25);
+  font-size: 10px; font-weight: 800; letter-spacing: 0.15em; text-transform: uppercase; color: #4ade80; margin-bottom: 24px; width: fit-content;
+}
+.feat-live-dot { width: 6px; height: 6px; background: #4ade80; border-radius: 50%; box-shadow: 0 0 8px #4ade80; }
+.feat-h { font-family: 'Outfit', sans-serif; font-size: 2.2rem; font-weight: 800; letter-spacing: -0.02em; color: #fff; margin-bottom: 16px; }
+.feat-d { font-size: 1rem; font-weight: 400; color: #a1a1aa; line-height: 1.7; margin-bottom: 32px; max-width: 45ch; }
+.feat-btns { display: flex; gap: 10px; flex-wrap: wrap; }
+.feat-btns .btn { font-size: 12px; padding: 11px 22px; }
+
+/* ─── PRODUCT GRID ─────────────────────────────────── */
+.pgrid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+.pcard {
+  background: rgba(255,255,255,0.02); border-radius: 20px; overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.05); display: flex; flex-direction: column;
+  transition: all .4s cubic-bezier(0.2, 1, 0.3, 1); backdrop-filter: blur(10px);
+}
+.pcard:hover {
+  transform: translateY(-8px); border-color: rgba(46,196,64,0.4);
+  box-shadow: 0 15px 35px rgba(0,0,0,0.4), 0 0 40px rgba(46,196,64,0.1);
+}
+.pcard-chrome {
+  background: rgba(0,0,0,0.3); padding: 10px 14px; display: flex; align-items: center; gap: 10px;
+  border-bottom: 1px solid rgba(255,255,255,0.05); flex-shrink: 0;
+}
+.pcard-url {
+  flex: 1; background: rgba(255,255,255,0.05); border-radius: 6px; padding: 4px 10px;
+  font-size: 10px; font-weight: 500; color: #a1a1aa; border: 1px solid rgba(255,255,255,0.05);
+}
+.pcard-img { height: 220px; overflow: hidden; flex-shrink: 0; background: #000; }
+.pcard-img img { width: 100%; height: 100%; object-fit: cover; object-position: top; opacity: 0.8; transition: transform .6s ease; }
+.pcard:hover .pcard-img img { transform: scale(1.05); opacity: 1; }
+.pcard-body { padding: 24px; display: flex; flex-direction: column; flex: 1; }
+.ptag {
+  display: inline-block; padding: 4px 12px; background: rgba(255,255,255,0.03); color: #a1a1aa;
+  border: 1px solid rgba(255,255,255,0.1); border-radius: 100px;
+  font-size: 9px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 16px; width: fit-content;
+}
+.ptitle { font-family: 'Outfit', sans-serif; font-size: 1.25rem; font-weight: 800; letter-spacing: -0.01em; color: #fff; margin-bottom: 10px; }
+.pdesc { font-size: 0.9rem; font-weight: 400; color: #a1a1aa; line-height: 1.6; flex: 1; margin-bottom: 24px; }
+.pactions { display: flex; gap: 8px; flex-wrap: wrap; }
+.pactions .btn { font-size: 10px; padding: 7px 14px; }
+
+/* ─── HOW WE WORK ──────────────────────────────────── */
+.how { padding: 120px 32px; background: #050508; border-top: 1px solid rgba(255,255,255,0.05); }
+.how-grid {
+  display: grid; grid-template-columns: repeat(3,1fr);
+  border: 1px solid rgba(255,255,255,0.1); border-radius: 24px; overflow: hidden; gap: 1px;
+  background: rgba(255,255,255,0.1); box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+}
+.how-item { background: #0a0a0e; padding: 48px 40px; transition: background .3s; }
+.how-item:hover { background: rgba(255,255,255,0.03); }
+.how-step {
+  font-size: 11px; font-weight: 800; letter-spacing: 0.2em; text-transform: uppercase;
+  color: #4ade80; display: flex; align-items: center; gap: 12px; margin-bottom: 20px;
+}
+.how-step::before { content: ''; width: 20px; height: 2px; background: #4ade80; box-shadow: 0 0 8px #4ade80; }
+.how-h { font-family: 'Outfit', sans-serif; font-size: 1.4rem; font-weight: 800; color: #fff; letter-spacing: -0.01em; margin-bottom: 14px; }
+.how-p { font-size: 0.95rem; font-weight: 400; color: #a1a1aa; line-height: 1.7; }
+
+/* ─── CTA ──────────────────────────────────────────── */
+.cta { padding: 120px 32px; background: radial-gradient(circle at center, rgba(46,196,64,0.05), transparent 60%), #0a0a0e; border-top: 1px solid rgba(255,255,255,0.05); text-align: center; position: relative; overflow: hidden;}
+.cta-inner { max-width: 600px; margin: 0 auto; position: relative; z-index: 2; }
+.cta-inner .sec-eyebrow { display: block; text-align: center; margin-bottom: 24px; color: #4ade80;}
+.cta-inner h2 { font-family: 'Outfit', sans-serif; font-size: clamp(2.5rem, 5vw, 4rem); font-weight: 900; letter-spacing: -0.04em; line-height: 1.05; color: #fff; margin-bottom: 20px; text-wrap: balance; }
+.cta-inner h2 em { background: linear-gradient(135deg, #4ade80, #2ec440); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-style: normal; }
+.cta-inner p { font-size: 1.1rem; font-weight: 400; color: #a1a1aa; line-height: 1.7; margin-bottom: 40px; }
+.cta-inner .btn { padding: 16px 40px; font-size: 14px; }
+
+/* ─── FOOTER ───────────────────────────────────────── */
+footer { background: #050508; border-top: 1px solid rgba(255,255,255,0.05); padding: 40px 32px; }
+.foot { max-width: 1180px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; gap: 24px; flex-wrap: wrap; }
+.foot-copy { font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: #71717a; }
+.foot-links { display: flex; gap: 24px; }
+.foot-links a { font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: #a1a1aa; transition: color .2s; }
+.foot-links a:hover { color: #4ade80; }
+
+/* ─── RESPONSIVE ───────────────────────────────────── */
+@media (max-width: 1060px) {
+  .hero-inner { grid-template-columns: 1fr; text-align: center; justify-items: center; }
+  .hero-sub { text-align: center; }
+  .hero-btns { justify-content: center; }
+  .hero-stats { justify-content: center; }
+  .hero-visual { display: none; }
+  .featured { grid-template-columns: 1fr; }
+  .feat-img { min-height: 300px; }
+  .feat-body { padding: 32px; }
+  .pgrid { grid-template-columns: repeat(2,1fr); }
+}
+@media (max-width: 768px) {
+  .how-grid { grid-template-columns: 1fr; gap: 1px; }
+  .sec-top { flex-direction: column; align-items: flex-start; gap: 16px; }
+  .sec-note { text-align: left; }
+}
+@media (max-width: 600px) {
+  .pgrid { grid-template-columns: 1fr; }
+  .nav-links { display: none; }
+  .hero { padding: 120px 20px 80px; }
+  .products, .how, .cta { padding-left: 20px; padding-right: 20px; }
+}
+
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="#" class="logo">
+      <div class="logo-mark">H</div>
+      <span class="logo-name">HUZALABS</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#products">Products</a></li>
+      <li><a href="#how">How We Work</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <a href="mailto:info@huzalabs.com" class="btn btn-green">Start a Project</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <div>
+      <div class="hero-pill">
+        <span class="pill-dot"></span>
+        Huzalabs &middot; Kigali, Rwanda
+      </div>
+      <h1>We design.<br>We build.<br><span class="g">We ship.</span></h1>
+      <p class="hero-sub">A digital product studio building enterprise software for government, healthcare, telecoms, and education — from first wireframe to live deployment.</p>
+      <div class="hero-btns">
+        <a href="#products" class="btn btn-green">Browse Products</a>
+        <a href="#contact" class="btn btn-outline">Work With Us &rarr;</a>
+      </div>
+      <div class="hero-stats">
+        <div>
+          <div class="hs-n">7<b>+</b></div>
+          <div class="hs-l">Products Shipped</div>
+        </div>
+        <div>
+          <div class="hs-n">5</div>
+          <div class="hs-l">Industries</div>
+        </div>
+        <div>
+          <div class="hs-n">20<b>+</b></div>
+          <div class="hs-l">Team Members</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Hero product visual -->
+    <div class="hero-visual" aria-hidden="true">
+      <div class="bw">
+        <div class="bw-chrome">
+          <div class="ss-dots"><span></span><span></span><span></span></div>
+          <div class="bw-addr">app.huzaflix.com/dashboard</div>
+        </div>
+        <div class="bw-screen">
+          <img src="PersonalPortfolio/src/assets/UserDashBoard.png" alt="Huzaflix Dashboard">
+          <div class="bw-fade"></div>
+        </div>
+      </div>
+      <div class="bw-float">
+        <div class="bw-float-icon">
+          <div class="bw-float-dot"></div>
+        </div>
+        <div>
+          <div class="bw-float-val">2,578</div>
+          <div class="bw-float-label">API Calls Today</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRODUCTS -->
+<section class="products" id="products">
+  <div style="max-width:1180px;margin:0 auto;">
+
+    <div class="sec-top">
+      <div>
+        <span class="sec-eyebrow">Our Products</span>
+        <h2 class="sec-h">Built. Deployed.<br>Actively used.</h2>
+      </div>
+      <p class="sec-note">Real products designed and developed in-house — each solving a specific problem, in production and running.</p>
+    </div>
+
+    <!-- FEATURED: Huzalink -->
+    <div class="featured">
+      <div class="feat-img">
+        <div class="feat-chrome">
+          <div class="ss-dots"><span></span><span></span><span></span></div>
+          <div class="ss-url" style="margin-left:4px;">huzalink.com</div>
+        </div>
+        <img src="PersonalPortfolio/src/assets/huzalink-screenshot.png" alt="Huzalink — Contract Winning Hub" loading="lazy">
+      </div>
+      <div class="feat-body">
+        <div class="feat-live">
+          <span class="feat-live-dot"></span>
+          Business Intelligence &middot; Live
+        </div>
+        <h3 class="feat-h">Huzalink</h3>
+        <p class="feat-d">A contract winning hub — daily opportunity alerts across sectors, AI-powered proposal support, and compliance assistance. Helping businesses find and win more government and private tenders.</p>
+        <div class="feat-btns">
+          <a href="https://huzalink.com" target="_blank" rel="noopener noreferrer" class="btn btn-green">View Live Product &rarr;</a>
+          <a href="mailto:info@huzalabs.com" class="btn btn-outline">Get Access</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- PRODUCT GRID -->
+    <div class="pgrid">
+
+      <!-- Huzaflix -->
+      <div class="pcard">
+        <div class="pcard-chrome">
+          <div class="ss-dots"><span></span><span></span><span></span></div>
+          <div class="pcard-url">app.huzaflix.com</div>
+        </div>
+        <div class="pcard-img">
+          <img src="PersonalPortfolio/src/assets/UserDashBoard.png" alt="Huzaflix" loading="lazy">
+        </div>
+        <div class="pcard-body">
+          <span class="ptag">Developer Tools</span>
+          <h3 class="ptitle">Huzaflix Ecosystem</h3>
+          <p class="pdesc">An API marketplace connecting businesses to emerging technologies — explore APIs, manage keys, and onboard developers in minutes.</p>
+          <div class="pactions">
+            <a href="#" class="btn btn-green">View Product &rarr;</a>
+            <a href="mailto:info@huzalabs.com" class="btn btn-outline">Get Access</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- NCSA LMS -->
+      <div class="pcard">
+        <div class="pcard-chrome">
+          <div class="ss-dots"><span></span><span></span><span></span></div>
+          <div class="pcard-url">lms.ncsa.rw</div>
+        </div>
+        <div class="pcard-img">
+          <img src="PersonalPortfolio/src/assets/ncsa-lms-catalogue.png" alt="NCSA LMS" loading="lazy">
+        </div>
+        <div class="pcard-body">
+          <span class="ptag">EdTech &middot; Cybersecurity</span>
+          <h3 class="ptitle">NCSA LMS</h3>
+          <p class="pdesc">National cybersecurity learning platform — career-path courses, live sandboxed labs, and in-browser virtual environments for the National Cybersecurity Agency of Rwanda.</p>
+          <div class="pactions">
+            <a href="#" class="btn btn-green">View Product &rarr;</a>
+            <a href="mailto:info@huzalabs.com" class="btn btn-outline">Get Access</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Emergency Response -->
+      <div class="pcard">
+        <div class="pcard-chrome">
+          <div class="ss-dots"><span></span><span></span><span></span></div>
+          <div class="pcard-url">emergency.huzalabs.com</div>
+        </div>
+        <div class="pcard-img">
+          <img src="PersonalPortfolio/src/assets/DispatcherDashboard.png" alt="Emergency Response" loading="lazy">
+        </div>
+        <div class="pcard-body">
+          <span class="ptag">Public Safety</span>
+          <h3 class="ptitle">Emergency Response</h3>
+          <p class="pdesc">Real-time emergency dispatch — live incident tracking, dispatcher dashboard, and field unit coordination across active zones.</p>
+          <div class="pactions">
+            <a href="#" class="btn btn-green">View Product &rarr;</a>
+            <a href="mailto:info@huzalabs.com" class="btn btn-outline">Get Access</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- IVR Platform -->
+      <div class="pcard">
+        <div class="pcard-chrome">
+          <div class="ss-dots"><span></span><span></span><span></span></div>
+          <div class="pcard-url">ivr.huzalabs.com</div>
+        </div>
+        <div class="pcard-img">
+          <img src="PersonalPortfolio/src/assets/IVR%20Landing%20Page.png" alt="IVR Platform" loading="lazy">
+        </div>
+        <div class="pcard-body">
+          <span class="ptag">Telecoms</span>
+          <h3 class="ptitle">IVR Platform</h3>
+          <p class="pdesc">Build and manage IVR call trees without technical overhead — a complete voice interaction platform for businesses of any size.</p>
+          <div class="pactions">
+            <a href="#" class="btn btn-green">View Product &rarr;</a>
+            <a href="mailto:info@huzalabs.com" class="btn btn-outline">Get Access</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Huzanetics -->
+      <div class="pcard">
+        <div class="pcard-chrome">
+          <div class="ss-dots"><span></span><span></span><span></span></div>
+          <div class="pcard-url">huzanetics.com</div>
+        </div>
+        <div class="pcard-img">
+          <img src="PersonalPortfolio/src/assets/huzanetics-dashboard.png" alt="Huzanetics" loading="lazy">
+        </div>
+        <div class="pcard-body">
+          <span class="ptag">Intelligence &middot; Security</span>
+          <h3 class="ptitle">Huzanetics</h3>
+          <p class="pdesc">Citizen mobility monitoring for national security and public health — counter-terrorism intelligence, contact tracing, and outbreak monitoring.</p>
+          <div class="pactions">
+            <a href="#" class="btn btn-green">View Product &rarr;</a>
+            <a href="mailto:info@huzalabs.com" class="btn btn-outline">Get Access</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- SMARTSchool -->
+      <div class="pcard">
+        <div class="pcard-chrome">
+          <div class="ss-dots"><span></span><span></span><span></span></div>
+          <div class="pcard-url">smartschool.huzalabs.com</div>
+        </div>
+        <div class="pcard-img">
+          <img src="PersonalPortfolio/src/assets/smartschool-dashboard.png" alt="SMARTSchool" loading="lazy">
+        </div>
+        <div class="pcard-body">
+          <span class="ptag">EdTech &middot; Operations</span>
+          <h3 class="ptitle">SMARTSchool</h3>
+          <p class="pdesc">A complete school management ecosystem — parent portals, attendance, school fees payment, academic records, and staff management in one platform.</p>
+          <div class="pactions">
+            <a href="#" class="btn btn-green">View Product &rarr;</a>
+            <a href="mailto:info@huzalabs.com" class="btn btn-outline">Get Access</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- HOW WE WORK -->
+<section class="how" id="how">
+  <div style="max-width:1180px;margin:0 auto;">
+    <div class="sec-top" style="margin-bottom:32px">
+      <div>
+        <span class="sec-eyebrow">How We Work</span>
+        <h2 class="sec-h">Design. Build. Deploy.</h2>
+      </div>
+    </div>
+    <div class="how-grid">
+      <div class="how-item">
+        <div class="how-step">Design</div>
+        <div class="how-h">From concept to pixel-perfect UI</div>
+        <p class="how-p">We research, wireframe, and design in Figma — building design systems before a single line of code is written. Every product starts with a clear visual language.</p>
+      </div>
+      <div class="how-item">
+        <div class="how-step">Build</div>
+        <div class="how-h">Engineered to production standard</div>
+        <p class="how-p">React, Next.js, Tailwind CSS. Fast, accessible, maintainable frontends — design and engineering handled by the same team, not handed off between them.</p>
+      </div>
+      <div class="how-item">
+        <div class="how-step">Deploy</div>
+        <div class="how-h">Shipped and actively running</div>
+        <p class="how-p">We don't hand over static mockups. We ship products — tested, deployed, and running in production. Our own portfolio proves it.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta" id="contact">
+  <div class="cta-inner">
+    <span class="sec-eyebrow">Work With Us</span>
+    <h2>Have an idea?<br><em>Let's build it.</em></h2>
+    <p>We work with startups, enterprises, and government agencies. If you need a team that can own design and engineering end to end — we'd like to hear about it.</p>
+    <a href="mailto:info@huzalabs.com" class="btn btn-green">Start a Conversation &rarr;</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="foot">
+    <a href="#" class="logo">
+      <div class="logo-mark">H</div>
+      <span class="logo-name">HUZALABS</span>
+    </a>
+    <p class="foot-copy">&copy; 2026 Huzalabs &middot; Kigali, Rwanda</p>
+    <div class="foot-links">
+      <a href="https://huzalink.com" target="_blank" rel="noopener noreferrer">Huzalink</a>
+      <a href="mailto:info@huzalabs.com">info@huzalabs.com</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('active');
+      }
+    });
+  }, { threshold: 0.1 });
+
+  const sections = document.querySelectorAll('.products, .how, .cta');
+  const cards = document.querySelectorAll('.pcard, .featured, .how-item');
+  
+  sections.forEach(s => { s.classList.add('reveal'); observer.observe(s); });
+  cards.forEach(c => { c.classList.add('reveal'); observer.observe(c); });
+});
+</script>
+</body>
+</html>
