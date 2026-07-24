@@ -13,8 +13,13 @@ export default function LicensingPage({ product, onNavigateHome }) {
   const logo = theme === 'dark' ? '/huzalabs-assets/Logo-white.png' : '/huzalabs-assets/Logo-black.png';
   const matched = product ? PRODUCTS.find((p) => p.title === product) : null;
 
-  const mailSubject = encodeURIComponent(matched ? `Access request: ${matched.title}` : 'Access request');
-  const mailHref = `mailto:info@huzalabs.com?subject=${mailSubject}`;
+  const calTitle = encodeURIComponent(matched ? `Huzalabs Licensing Call — ${matched.title}` : 'Huzalabs Licensing Call');
+  const calDetails = encodeURIComponent(
+    matched
+      ? `Schedule a call to discuss licensing and deployment for ${matched.title}.`
+      : 'Schedule a call to discuss licensing and deployment for a Huzalabs product.'
+  );
+  const calHref = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${calTitle}&details=${calDetails}&add=info@huzalabs.com`;
 
   const handleHome = (e) => {
     if (onNavigateHome) {
@@ -72,7 +77,7 @@ export default function LicensingPage({ product, onNavigateHome }) {
               </div>
             ))}
           </div>
-          <a href={mailHref} className="btn btn-green license-cta">Request Access &rarr;</a>
+          <a href={calHref} target="_blank" rel="noopener noreferrer" className="btn btn-green license-cta">Schedule a Meeting &rarr;</a>
         </div>
       </section>
 
