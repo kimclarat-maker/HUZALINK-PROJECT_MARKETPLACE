@@ -2,7 +2,11 @@ import { useState } from 'react';
 import './HuzalinkMarketplace.css';
 import { PRODUCTS, SunIcon, MoonIcon, ArrowRightIcon } from './HuzalinkMarketplace';
 
-const DEPLOYMENT_OPTIONS = ['On-Premise', 'SaaS', 'Government Portal'];
+const DEPLOYMENT_OPTIONS = [
+  { name: 'On-Premise', note: 'Hosted on your own servers' },
+  { name: 'SaaS', note: 'We host it, you just log in' },
+  { name: 'Government Portal', note: 'Integrated with public systems' },
+];
 
 export default function LicensingPage({ product, onNavigateHome }) {
   const [theme, setTheme] = useState('light');
@@ -62,7 +66,10 @@ export default function LicensingPage({ product, onNavigateHome }) {
           </p>
           <div className="license-options">
             {DEPLOYMENT_OPTIONS.map((o) => (
-              <span className="license-chip" key={o}>{o}</span>
+              <div className="license-chip" key={o.name}>
+                <span className="license-chip-name">{o.name}</span>
+                <span className="license-chip-note">{o.note}</span>
+              </div>
             ))}
           </div>
           <a href={mailHref} className="btn btn-green license-cta">Request Access &rarr;</a>
