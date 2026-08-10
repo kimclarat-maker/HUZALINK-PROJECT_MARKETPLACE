@@ -143,6 +143,7 @@ export const PRODUCTS = [
   },
   {
     url: 'parliament.huzalabs.com',
+    iframeUrl: 'https://e-parliament-lovat.vercel.app/',
     tag: 'Government · Legislative',
     category: 'Government',
     deployment: 'Government Portal',
@@ -152,6 +153,7 @@ export const PRODUCTS = [
   },
   {
     url: 'bloodbank.huzalabs.com',
+    iframeUrl: 'https://bbms-lilac.vercel.app/',
     tag: 'Healthcare · Public Health',
     category: 'Healthcare',
     deployment: 'On-Premise',
